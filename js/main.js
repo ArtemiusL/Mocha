@@ -1,21 +1,30 @@
 mocha.setup('bdd');
 
 const sum = (left, right) => left+right;
-const assert = (truth) => {
-	if(!truth) {
-		throw new Error(`Ожидается что будет true: ${truth} == true`)
+
+const equals = (expected, actual) => {
+	if(expected !== actual) {
+		throw new Error(`Ожидается: ${expected}, равный: ${actual}`)
+	}
+}
+
+const notEquals = (expected, actual) => {
+	if(expected === actual) {
+		throw new Error(`Ожидается: ${expected}, не равный: ${actual}`)
 	}
 }
 
 describe('Математика для 3-го класса', () => {
 	it('Должны быть корректные данные', () => {
-		assert(sum(2,2) === 4); 
+		equals(sum(2,2), 4);
+		notEquals(sum(2,3), 4); 
 	});
 	it('Должны корректно складываться отрицательные числа', () => {
-		assert(sum(-1, -1) === -2);
+		equals(sum(-1, -1), -2);
+		notEquals(sum(-1,-3), -3); 
 	});
 	it('Должны корректно складываться отрицательные и положительные числа', () => {
-		assert(sum(-1, 2) === 1);
+		equals(sum(-1, 2), 1);
 	});
 });
 
